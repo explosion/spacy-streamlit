@@ -1,6 +1,6 @@
 <a href="https://explosion.ai"><img src="https://explosion.ai/assets/img/logo.svg" width="125" height="125" align="right" /></a>
 
-# spacy-streamlit: spaCy comoponents for Streamlit
+# spacy-streamlit: spaCy building blocks for Streamlit apps
 
 This package contains utilities for visualizing [spaCy](https://spacy.io) models
 and building interactive spaCy-powered apps with
@@ -38,7 +38,7 @@ spacy_streamlit.visualizer(models, default_text))
 
 You can then run your app with `streamlit run streamlit_app.py`.
 
-### 📦 Example: [`01_out-of-the-box.py`](examples/01_out-of-the-box.py)
+#### 📦 Example: [`01_out-of-the-box.py`](examples/01_out-of-the-box.py)
 
 Use the embedded visualizer with custom settings out-of-the-box.
 
@@ -46,7 +46,7 @@ Use the embedded visualizer with custom settings out-of-the-box.
 streamlit run https://raw.githubusercontent.com/explosion/spacy-streamlit/master/examples/01_out-of-the-box.py
 ```
 
-### 👑 Example: [`02_custom.py`](examples/02_custom.py)
+#### 👑 Example: [`02_custom.py`](examples/02_custom.py)
 
 Use individual components in your existing app.
 
