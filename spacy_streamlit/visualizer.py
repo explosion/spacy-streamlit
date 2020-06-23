@@ -13,15 +13,10 @@ TOKEN_ATTRS = ["idx", "text", "lemma_", "pos_", "tag_", "dep_", "head",
                "ent_type_", "ent_iob_", "shape_", "is_alpha", "is_ascii",
                "is_digit", "is_punct", "like_num"]
 # fmt: on
-
-DESCRIPTION = """
-Process text with [spaCy](https://spacy.io) models and visualize the output.
-Uses spaCy's built-in [displaCy](http://spacy.io/usage/visualizers) visualizer
-under the hood.
-"""
+FOOTER = """<span style="font-size: 0.75em">&hearts; Built with [`spacy-streamlit`](https://github.com/explosion/spacy-streamlit)</span>"""
 
 
-def visualizer(
+def visualize(
     models: List[str],
     default_text: str = "",
     visualizers: List[str] = ["parser", "ner", "textcat", "similarity", "tokens"],
@@ -32,7 +27,7 @@ def visualizer(
     show_json_doc: bool = True,
     show_model_meta: bool = True,
     sidebar_title: Optional[str] = None,
-    sidebar_description: Optional[str] = DESCRIPTION,
+    sidebar_description: Optional[str] = None,
     show_logo: bool = True,
     color: Optional[str] = "#09A3D5",
 ) -> None:
@@ -75,6 +70,10 @@ def visualizer(
         st.header("JSON model meta")
         if st.button("Show JSON model meta"):
             st.json(nlp.meta)
+
+    st.sidebar.markdown(
+        FOOTER, unsafe_allow_html=True,
+    )
 
 
 def visualize_parser(
@@ -156,10 +155,9 @@ def visualize_similarity(
     meta = nlp.meta.get("vectors", {})
     if title:
         st.header(title)
-    if meta.get("width", 0):
-        if not meta.get("width", 0):
-            st.warning("No vectors available in the model.")
-        st.code(meta)
+    if not meta.get("width", 0):
+        st.warning("No vectors available in the model.")
+    st.code(meta)
     text1 = st.text_input("Text or word 1", default_texts[0])
     text2 = st.text_input("Text or word 2", default_texts[1])
     doc1 = nlp.make_doc(text1)

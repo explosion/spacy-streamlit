@@ -25,7 +25,7 @@ pip install spacy-streamlit
 The package includes **building blocks** that call into Streamlit and set up all
 the required elements for you. You can either use the individual components
 directly and combine them with other elements in your app, or call the
-`visualizer` function to embed the whole visualizer.
+`visualize` function to embed the whole visualizer.
 
 ```python
 # streamlit_app.py
@@ -33,7 +33,7 @@ import spacy_streamlit
 
 models = ["en_core_web_sm", "en_core_web_md"]
 default_text = "Sundar Pichai is the CEO of Google."
-spacy_streamlit.visualizer(models, default_text))
+spacy_streamlit.visualize(models, default_text))
 ```
 
 You can then run your app with `streamlit run streamlit_app.py`.
@@ -61,7 +61,7 @@ streamlit run https://raw.githubusercontent.com/explosion/spacy-streamlit/master
 These functions can be used in your Streamlit app. They call into `streamlit`
 under the hood and set up the required elements.
 
-#### <kbd>function</kbd> `visualizer`
+#### <kbd>function</kbd> `visualize`
 
 Embed the full visualizer with selected components.
 
@@ -71,7 +71,7 @@ import spacy_streamlit
 models = ["en_core_web_sm", "/path/to/model"]
 default_text = "Sundar Pichai is the CEO of Google."
 visualizers = ["ner", "textcat"]
-spacy_streamlit.visualizer(models, default_text, visualizers)
+spacy_streamlit.visualize(models, default_text, visualizers)
 ```
 
 | Argument              | Type                | Description                                                                                                            |
