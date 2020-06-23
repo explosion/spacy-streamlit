@@ -9,7 +9,7 @@ use in your own Streamlit app, like visualizers for **syntactic dependencies**,
 **named entities**, **text classification**, **semantic similarity** via word
 vectors, token attributes, and more.
 
-[![Current Release Version](https://img.shields.io/github/release/explosion/spacy-streamlit.svg?style=flat-square&logo=github?include_prereleases)](https://github.com/explosion/spacy-streamlit/releases)
+[![Current Release Version](https://img.shields.io/github/release/explosion/spacy-streamlit.svg?style=flat-square&logo=github&include_prereleases)](https://github.com/explosion/spacy-streamlit/releases)
 [![pypi Version](https://img.shields.io/pypi/v/spacy-streamlit.svg?style=flat-square&logo=pypi&logoColor=white)](https://pypi.org/project/spacy-streamlit/)
 
 <img width="50%" align="right" src="https://user-images.githubusercontent.com/13643239/85388081-f2da8700-b545-11ea-9bd4-e303d3c5763c.png">
