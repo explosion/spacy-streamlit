@@ -185,7 +185,7 @@ from spacy_streamlit import visualize_tokens
 
 nlp = spacy.load("en_core_web_sm")
 doc = nlp("This is a text")
-visualize_tokens(doc, atrrs=["text", "pos_", "dep_", "ent_type_"])
+visualize_tokens(doc, attrs=["text", "pos_", "dep_", "ent_type_"])
 ```
 
 | Argument       | Type          | Description                                                                                              |
