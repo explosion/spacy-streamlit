@@ -33,7 +33,7 @@ import spacy_streamlit
 
 models = ["en_core_web_sm", "en_core_web_md"]
 default_text = "Sundar Pichai is the CEO of Google."
-spacy_streamlit.visualize(models, default_text))
+spacy_streamlit.visualize(models, default_text)
 ```
 
 You can then run your app with `streamlit run streamlit_app.py`.
