@@ -33,7 +33,7 @@ import spacy_streamlit
 
 models = ["en_core_web_sm", "en_core_web_md"]
 default_text = "Sundar Pichai is the CEO of Google."
-spacy_streamlit.visualize(models, default_text))
+spacy_streamlit.visualize(models, default_text)
 ```
 
 You can then run your app with `streamlit run streamlit_app.py`.
@@ -187,7 +187,7 @@ from spacy_streamlit import visualize_tokens
 
 nlp = spacy.load("en_core_web_sm")
 doc = nlp("This is a text")
-visualize_tokens(doc, atrrs=["text", "pos_", "dep_", "ent_type_"])
+visualize_tokens(doc, attrs=["text", "pos_", "dep_", "ent_type_"])
 ```
 
 | Argument       | Type          | Description                                                                                              |
