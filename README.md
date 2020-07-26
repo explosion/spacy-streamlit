@@ -27,6 +27,14 @@ the required elements for you. You can either use the individual components
 directly and combine them with other elements in your app, or call the
 `visualize` function to embed the whole visualizer.
 
+Download the English model from spaCy to get started.
+
+```bash
+python -m spacy download en_core_web_sm
+```
+
+Then put the following example code in a file.
+
 ```python
 # streamlit_app.py
 import spacy_streamlit
@@ -36,7 +44,7 @@ default_text = "Sundar Pichai is the CEO of Google."
 spacy_streamlit.visualize(models, default_text)
 ```
 
-You can then run your app with `streamlit run streamlit_app.py`.
+You can then run your app with `streamlit run streamlit_app.py`. The app should pop up in your web browser. 😀
 
 #### 📦 Example: [`01_out-of-the-box.py`](examples/01_out-of-the-box.py)
 
