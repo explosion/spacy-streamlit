@@ -1,4 +1,4 @@
-from typing import List, Sequence, Tuple, Optional
+from typing import List, Sequence, Tuple, Optional, Dict
 import streamlit as st
 import spacy
 from spacy import displacy
@@ -113,6 +113,7 @@ def visualize_ner(
     show_table: bool = True,
     title: Optional[str] = "Named Entities",
     sidebar_title: Optional[str] = "Named Entities",
+    colors: Dict[str, str] = {},
     key: Optional[str] = None,
 ) -> None:
     """Visualizer for named entities."""
@@ -123,7 +124,9 @@ def visualize_ner(
     label_select = st.sidebar.multiselect(
         "Entity labels", options=labels, default=list(labels), key=f"{key}_ner_label_select"
     )
-    html = displacy.render(doc, style="ent", options={"ents": label_select})
+    html = displacy.render(
+        doc, style="ent", options={"ents": label_select, "colors": colors}
+    )
     style = "<style>mark.entity { display: inline-block }</style>"
     st.write(f"{style}{get_html(html)}", unsafe_allow_html=True)
     if show_table:

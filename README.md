@@ -134,6 +134,8 @@ visualize_ner(doc, labels=nlp.get_pipe("ner").labels)
 | `show_table`    | bool          | Whether to show a table of entities and their attributes. Defaults to `True`. |
 | `title`         | Optional[str] | Title of the visualizer block.                                                |
 | `sidebar_title` | Optional[str] | Title of the config settings in the sidebar.                                  |
+| `colors`        | Dict[str,str] | A dictionary mapping labels to display colors ({"LABEL": "COLOR"})            |
+
 
 #### <kbd>function</kbd> `visualize_textcat`
 
@@ -232,7 +234,7 @@ spacy_model = st.sidebar.selectbox("Model name", ["en_core_web_sm", "en_core_web
 nlp = load_model(spacy_model)
 ```
 
-| Argument    | Type       | Description                                              |
-| ----------- | ---------- | -------------------------------------------------------- |
-| `name`      | str        |  Loadable spaCy model name. Can be path or package name. |
-| **RETURNS** | `Language` | The loaded `nlp` object.                                 |
+| Argument    | Type       | Description                                             |
+| ----------- | ---------- | ------------------------------------------------------- |
+| `name`      | str        | Loadable spaCy model name. Can be path or package name. |
+| **RETURNS** | `Language` | The loaded `nlp` object.                                |
