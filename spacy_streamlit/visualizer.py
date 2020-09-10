@@ -25,7 +25,8 @@ def visualize(
     similarity_texts: Tuple[str, str] = ("apple", "orange"),
     token_attrs: List[str] = TOKEN_ATTRS,
     show_json_doc: bool = True,
-    show_model_meta: bool = True,
+    show_meta: bool = True,
+    show_config: bool = True,
     sidebar_title: Optional[str] = None,
     sidebar_description: Optional[str] = None,
     show_logo: bool = True,
@@ -67,10 +68,15 @@ def visualize(
         if st.button("Show JSON Doc", key=f"{key}_visualize_show_json_doc"):
             st.json(doc.to_json())
 
-    if show_model_meta:
-        st.header("JSON model meta")
-        if st.button("Show JSON model meta", key=f"{key}_visualize_show_model_meta"):
+    if show_meta:
+        st.header("Pipeline Meta")
+        if st.button("Show meta.json", key=f"{key}_visualize_show_meta"):
             st.json(nlp.meta)
+
+    if show_config:
+        st.header("Pipeline Config")
+        if st.button("Show config.cfg", key=f"{key}_visualize_show_config"):
+            st.code(nlp.config.to_str())
 
     st.sidebar.markdown(
         FOOTER, unsafe_allow_html=True,
