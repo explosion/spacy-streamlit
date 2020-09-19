@@ -38,9 +38,9 @@ LOGO = get_svg(LOGO_SVG, wrap=False, style="max-width: 100%; margin-bottom: 25px
 def get_color_styles(color: str) -> str:
     """Compile some hacky CSS to override the theme color."""
     # fmt: off
-    color_selectors = ["a", "a:hover", "*:not(textarea).st-ex:hover", ".st-en:hover"]
-    bg_selectors = [".st-da", "*:not(button).st-en:hover"]
-    border_selectors = [".st-ft", ".st-fs", ".st-fr", ".st-fq", ".st-ex:hover", ".st-en:hover"]
+    color_selectors = ["a", "a:hover", ".stMultiSelect span:hover svg"]
+    bg_selectors = ['.stCheckbox label span[aria-checked="true"]', ".stMultiSelect span"]
+    border_selectors = [".stSelectbox > div[aria-controls] > div", ".stMultiSelect > div[aria-controls] > div", ".stTextArea > div:focus-within"]
     # fmt: on
     css_root = "#root { --primary: %s }" % color
     css_color = ", ".join(color_selectors) + "{ color: %s !important }" % color
