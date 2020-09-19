@@ -44,7 +44,8 @@ default_text = "Sundar Pichai is the CEO of Google."
 spacy_streamlit.visualize(models, default_text)
 ```
 
-You can then run your app with `streamlit run streamlit_app.py`. The app should pop up in your web browser. 😀
+You can then run your app with `streamlit run streamlit_app.py`. The app should
+pop up in your web browser. 😀
 
 #### 📦 Example: [`01_out-of-the-box.py`](examples/01_out-of-the-box.py)
 
@@ -82,21 +83,22 @@ visualizers = ["ner", "textcat"]
 spacy_streamlit.visualize(models, default_text, visualizers)
 ```
 
-| Argument              | Type                | Description                                                                                                            |
-| --------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `models`              | List[str]           | Names of loadable spaCy models (paths or package names). The models become selectable via a dropdown.                  |
-| `default_text`        | str                 | Default text to analyze on load. Defaults to `""`.                                                                     |
-| `visualizers`         | List[str]           | Names of visualizers to show. Defaults to `["parser", "ner", "textcat", "similarity", "tokens"]`.                      |
-| `ner_labels`          | Optional[List[str]] | NER labels to include. If not set, all labels present in the `"ner"` pipeline component will be used.                  |
-| `ner_attrs`           | List[str]           | Span attributes shown in table of named entities. See [`visualizer.py`](spacy_streamlit/visualizer.py) for defaults.   |
-| `token_attrs`         | List[str]           | Token attributes to show in token visualizer. See [`visualizer.py`](spacy_streamlit/visualizer.py) for defaults.       |
-| `similarity_texts`    | Tuple[str, str]     | The default texts to compare in the similarity visualizer. Defaults to `("apple", "orange")`.                          |
-| `show_json_doc`       | bool                | Show button to toggle JSON representation of the `Doc`. Defaults to `True`.                                            |
-| `show_model_meta`     | bool                | Show button to toggle model `meta.json`. Defaults to `True`.                                                           |
-| `sidebar_title`       | Optional[str]       | Title shown in the sidebar. Defaults to `None`.                                                                        |
-| `sidebar_description` | Optional[str]       | Description shown in the sidebar. Accepts Markdown-formatted text.                                                     |
-| `show_logo`           | bool                | Show the spaCy logo in the sidebar. Defaults to `True`.                                                                |
-| `color`               | Optional[str]       | Experimental: Primary color to use for some of the main UI elements (`None` to disable hack). Defaults to `"#09A3D5"`. |
+| Argument                 | Type                       | Description                                                                                                                                                                                         |
+| ------------------------ | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `models`                 | List[str] / Dict[str, str] | Names of loadable spaCy models (paths or package names). The models become selectable via a dropdown. Can either be a list of names or the names mapped to descriptions to display in the dropdown. |
+| `default_text`           | str                        | Default text to analyze on load. Defaults to `""`.                                                                                                                                                  |
+| `visualizers`            | List[str]                  | Names of visualizers to show. Defaults to `["parser", "ner", "textcat", "similarity", "tokens"]`.                                                                                                   |
+| `ner_labels`             | Optional[List[str]]        | NER labels to include. If not set, all labels present in the `"ner"` pipeline component will be used.                                                                                               |
+| `ner_attrs`              | List[str]                  | Span attributes shown in table of named entities. See [`visualizer.py`](spacy_streamlit/visualizer.py) for defaults.                                                                                |
+| `token_attrs`            | List[str]                  | Token attributes to show in token visualizer. See [`visualizer.py`](spacy_streamlit/visualizer.py) for defaults.                                                                                    |
+| `similarity_texts`       | Tuple[str, str]            | The default texts to compare in the similarity visualizer. Defaults to `("apple", "orange")`.                                                                                                       |
+| `show_json_doc`          | bool                       | Show button to toggle JSON representation of the `Doc`. Defaults to `True`.                                                                                                                         |
+| `show_model_meta`        | bool                       | Show button to toggle model `meta.json`. Defaults to `True`.                                                                                                                                        |
+| `show_visualizer_select` | bool                       | Show sidebar dropdown to select visualizers to display (based on enabled visualizers). Defaults to `False`.                                                                                         |
+| `sidebar_title`          | Optional[str]              | Title shown in the sidebar. Defaults to `None`.                                                                                                                                                     |
+| `sidebar_description`    | Optional[str]              | Description shown in the sidebar. Accepts Markdown-formatted text.                                                                                                                                  |
+| `show_logo`              | bool                       | Show the spaCy logo in the sidebar. Defaults to `True`.                                                                                                                                             |
+| `color`                  | Optional[str]              | Experimental: Primary color to use for some of the main UI elements (`None` to disable hack). Defaults to `"#09A3D5"`.                                                                              |
 
 #### <kbd>function</kbd> `visualize_parser`
 
@@ -143,7 +145,6 @@ visualize_ner(doc, labels=nlp.get_pipe("ner").labels)
 | `title`         | Optional[str] | Title of the visualizer block.                                                |
 | `sidebar_title` | Optional[str] | Title of the config settings in the sidebar.                                  |
 | `colors`        | Dict[str,str] | A dictionary mapping labels to display colors ({"LABEL": "COLOR"})            |
-
 
 #### <kbd>function</kbd> `visualize_textcat`
 
