@@ -51,12 +51,12 @@ def visualize(
         model_names = list(models.keys())
 
     spacy_model = st.sidebar.selectbox(
-        "Pipeline",
+        "Model",
         model_names,
         key=f"{key}_visualize_models",
         format_func=format_func,
     )
-    model_load_state = st.info(f"Loading pipeline '{spacy_model}'...")
+    model_load_state = st.info(f"Loading model '{spacy_model}'...")
     nlp = load_model(spacy_model)
     model_load_state.empty()
 
