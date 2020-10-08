@@ -44,7 +44,7 @@ def visualize(
     if sidebar_description:
         st.sidebar.markdown(sidebar_description)
 
-    # Allow both dict of model name / description as well as lit of names
+    # Allow both dict of model name / description as well as list of names
     model_names = models
     format_func = str
     if isinstance(models, dict):
