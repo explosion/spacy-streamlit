@@ -19,6 +19,7 @@ FOOTER = """<span style="font-size: 0.75em">&hearts; Built with [`spacy-streamli
 def visualize(
     models: Union[List[str], Dict[str, str]],
     default_text: str = "",
+    default_model: Optional[str] = None,
     visualizers: List[str] = ["parser", "ner", "textcat", "similarity", "tokens"],
     ner_labels: Optional[List[str]] = None,
     ner_attrs: List[str] = NER_ATTRS,
@@ -51,9 +52,15 @@ def visualize(
         format_func = lambda name: models.get(name, name)
         model_names = list(models.keys())
 
+    default_model_index = (
+        model_names.index(default_model)
+        if default_model is not None and default_model in model_names
+        else 0
+    )
     spacy_model = st.sidebar.selectbox(
         "Model",
         model_names,
+        index=default_model_index,
         key=f"{key}_visualize_models",
         format_func=format_func,
     )
