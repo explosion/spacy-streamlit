@@ -38,13 +38,15 @@ LOGO = get_svg(LOGO_SVG, wrap=False, style="max-width: 100%; margin-bottom: 25px
 def get_color_styles(color: str) -> str:
     """Compile some hacky CSS to override the theme color."""
     # fmt: off
-    color_selectors = ["a", "a:hover", ".stMultiSelect span:hover svg"]
+    color_selectors = ["a", "a:hover", ".stMultiSelect span:hover svg", ".streamlit-expanderHeader:hover"]
     bg_selectors = ['.stCheckbox label span[aria-checked="true"]', ".stMultiSelect span"]
-    border_selectors = [".stSelectbox > div[aria-controls] > div", ".stMultiSelect > div[aria-controls] > div", ".stTextArea > div:focus-within"]
+    border_selectors = [".stSelectbox > div[aria-controls] > div", ".stMultiSelect > div[aria-controls] > div", ".stTextArea > div:focus-within", ".streamlit-expanderHeader:hover"]
+    fill_selectors = [".streamlit-expanderHeader:hover svg", ".stMultiSelect span:hover svg"]
     # fmt: on
     css_root = "#root { --primary: %s }" % color
     css_color = ", ".join(color_selectors) + "{ color: %s !important }" % color
+    css_fill = ", ".join(fill_selectors) + "{ fill: %s !important }" % color
     css_bg = ", ".join(bg_selectors) + "{ background-color: %s !important }" % color
     css_border = ", ".join(border_selectors) + "{ border-color: %s !important }" % color
-    other = ".decoration { background: %s !important }" % color
-    return f"<style>{css_root}{css_color}{css_bg}{css_border}{other}</style>"
+    other = ".decoration { background: %s !important } code { color: inherit }" % color
+    return f"<style>{css_root}{css_color}{css_bg}{css_border}{css_fill}{other}</style>"
