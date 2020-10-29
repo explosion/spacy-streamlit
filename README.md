@@ -141,7 +141,7 @@ visualize_ner(doc, labels=nlp.get_pipe("ner").labels)
 | --------------- | ------------- | ----------------------------------------------------------------------------- |
 | `doc`           | `Doc`         | The spaCy `Doc` object to visualize.                                          |
 | _keyword-only_  |               |                                                                               |
-| `labels`        | Sequence[str] | The labels to show in the labels dropdown.                                    |
+| `labels` **(required)**       | Sequence[str] | The labels to show in the labels dropdown.                                    |
 | `attrs`         | List[str]     | The span attributes to show in entity table.                                  |
 | `show_table`    | bool          | Whether to show a table of entities and their attributes. Defaults to `True`. |
 | `title`         | Optional[str] | Title of the visualizer block.                                                |
