@@ -20,6 +20,5 @@ spacy_streamlit.visualize_ner(
     labels=["PERSON", "DATE", "GPE"],
     show_table=False,
     title="Persons, dates and locations",
-    sidebar_title=None,
 )
 st.text(f"Analyzed using spaCy model {spacy_model}")
