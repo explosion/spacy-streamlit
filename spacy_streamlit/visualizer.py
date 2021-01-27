@@ -1,6 +1,7 @@
-from typing import List, Sequence, Tuple, Optional, Dict, Union
+from typing import List, Sequence, Tuple, Optional, Dict, Union, Callable
 import streamlit as st
 import spacy
+from spacy.language import Language
 from spacy import displacy
 import pandas as pd
 
@@ -35,6 +36,7 @@ def visualize(
     show_logo: bool = True,
     color: Optional[str] = "#09A3D5",
     key: Optional[str] = None,
+    get_default_text: Callable[[Language], str] = None,
 ) -> None:
     """Embed the full visualizer with selected components."""
     if color:
@@ -84,6 +86,9 @@ def visualize(
     else:
         active_visualizers = visualizers
 
+    default_text = (
+        get_default_text(nlp) if get_default_text is not None else default_text
+    )
     text = st.text_area("Text to analyze", default_text, key=f"{key}_visualize_text")
     doc = process_text(spacy_model, text)
 
@@ -114,7 +119,8 @@ def visualize(
             config_exp.code(nlp.config.to_str())
 
     st.sidebar.markdown(
-        FOOTER, unsafe_allow_html=True,
+        FOOTER,
+        unsafe_allow_html=True,
     )
 
 
