@@ -107,15 +107,15 @@ def visualize(
     if show_json_doc or show_meta or show_config:
         st.header("Pipeline information")
         if show_json_doc:
-            json_doc_exp = st.beta_expander("JSON Doc")
+            json_doc_exp = st.expander("JSON Doc")
             json_doc_exp.json(doc.to_json())
 
         if show_meta:
-            meta_exp = st.beta_expander("Pipeline meta.json")
+            meta_exp = st.expander("Pipeline meta.json")
             meta_exp.json(nlp.meta)
 
         if show_config:
-            config_exp = st.beta_expander("Pipeline config.cfg")
+            config_exp = st.expander("Pipeline config.cfg")
             config_exp.code(nlp.config.to_str())
 
     st.sidebar.markdown(
@@ -133,7 +133,7 @@ def visualize_parser(
     """Visualizer for dependency parses."""
     if title:
         st.header(title)
-    cols = st.beta_columns(4)
+    cols = st.columns(4)
     split_sents = cols[0].checkbox(
         "Split sentences", value=True, key=f"{key}_parser_split_sents"
     )
@@ -169,7 +169,7 @@ def visualize_ner(
     """Visualizer for named entities."""
     if title:
         st.header(title)
-    exp = st.beta_expander("Select entity labels")
+    exp = st.expander("Select entity labels")
     label_select = exp.multiselect(
         "Entity labels",
         options=labels,
@@ -217,7 +217,7 @@ def visualize_similarity(
     if not meta.get("width", 0):
         st.warning("No vectors available in the model.")
     else:
-        cols = st.beta_columns(2)
+        cols = st.columns(2)
         text1 = cols[0].text_input(
             "Text or word 1", default_texts[0], key=f"{key}_similarity_text1"
         )
@@ -233,7 +233,7 @@ def visualize_similarity(
         else:
             st.error(similarity_text)
 
-        exp = st.beta_expander("Vector information")
+        exp = st.expander("Vector information")
         exp.code(meta)
 
 
@@ -247,7 +247,7 @@ def visualize_tokens(
     """Visualizer for token attributes."""
     if title:
         st.header(title)
-    exp = st.beta_expander("Select token attributes")
+    exp = st.expander("Select token attributes")
     selected = exp.multiselect(
         "Token attributes",
         options=attrs,
