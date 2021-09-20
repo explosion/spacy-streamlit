@@ -5,7 +5,7 @@ from spacy.language import Language
 from spacy import displacy
 import pandas as pd
 
-from .util import load_model, process_text, get_svg, get_html, get_color_styles, LOGO
+from .util import load_model, process_text, get_svg, get_html, LOGO # get_color_styles,
 
 
 # fmt: off
@@ -15,6 +15,7 @@ TOKEN_ATTRS = ["idx", "text", "lemma_", "pos_", "tag_", "dep_", "head", "morph",
                "is_digit", "is_punct", "like_num", "is_sent_start"]
 # fmt: on
 FOOTER = """<span style="font-size: 0.75em">&hearts; Built with [`spacy-streamlit`](https://github.com/explosion/spacy-streamlit)</span>"""
+
 
 
 def visualize(
@@ -39,8 +40,15 @@ def visualize(
     get_default_text: Callable[[Language], str] = None,
 ) -> None:
     """Embed the full visualizer with selected components."""
+    
+    #PAGE_CONFIG = {"page_title":"Spacy-Streamlit", 
+    #               "page_icon":LOGO}
+    
+    st.set_page_config(page_title="Spacy-Streamlit")#,
+    #    #page_icon = LOGO
+    #)
     if color:
-        st.write(get_color_styles(color), unsafe_allow_html=True)
+        st.write(theme={"primaryColor":color})#get_color_styles(color), unsafe_allow_html=True)
     if show_logo:
         st.sidebar.markdown(LOGO, unsafe_allow_html=True)
     if sidebar_title:
@@ -65,7 +73,7 @@ def visualize(
         model_names,
         index=default_model_index,
         key=f"{key}_visualize_models",
-        format_func=format_func,
+        format_func=format_func
     )
     model_load_state = st.info(f"Loading model '{spacy_model}'...")
     nlp = load_model(spacy_model)
