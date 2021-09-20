@@ -18,6 +18,7 @@ FOOTER = """<span style="font-size: 0.75em">&hearts; Built with [`spacy-streamli
 
 
 
+
 def visualize(
     models: Union[List[str], Dict[str, str]],
     default_text: str = "",
@@ -40,15 +41,10 @@ def visualize(
     get_default_text: Callable[[Language], str] = None,
 ) -> None:
     """Embed the full visualizer with selected components."""
-    
-    #PAGE_CONFIG = {"page_title":"Spacy-Streamlit", 
-    #               "page_icon":LOGO}
-    
-    st.set_page_config(page_title="Spacy-Streamlit")#,
-    #    #page_icon = LOGO
-    #)
-    if color:
-        st.write(theme={"primaryColor":color})#get_color_styles(color), unsafe_allow_html=True)
+
+    st.set_page_config(page_title="Spacy-Streamlit")
+    st.config.set_option("theme.primaryColor", '#09A3D5')
+
     if show_logo:
         st.sidebar.markdown(LOGO, unsafe_allow_html=True)
     if sidebar_title:
@@ -73,7 +69,8 @@ def visualize(
         model_names,
         index=default_model_index,
         key=f"{key}_visualize_models",
-        format_func=format_func
+        format_func=format_func,
+        args = {}
     )
     model_load_state = st.info(f"Loading model '{spacy_model}'...")
     nlp = load_model(spacy_model)
