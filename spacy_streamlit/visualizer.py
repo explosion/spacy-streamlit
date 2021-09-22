@@ -37,12 +37,13 @@ def visualize(
     sidebar_description: Optional[str] = None,
     show_logo: bool = True,
     color: Optional[str] = "#09A3D5",
+    app_name: Optional[str] = "spaCy-Streamlit",
     key: Optional[str] = None,
     get_default_text: Callable[[Language], str] = None,
 ) -> None:
     """Embed the full visualizer with selected components."""
 
-    st.set_page_config(page_title="Spacy-Streamlit")
+    st.set_page_config(page_title=app_name)
     st.config.set_option("theme.primaryColor", '#09A3D5')
 
     if show_logo:
