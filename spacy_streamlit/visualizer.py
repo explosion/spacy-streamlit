@@ -43,8 +43,7 @@ def visualize(
 ) -> None:
     """Embed the full visualizer with selected components."""
 
-    st.set_page_config(page_title=app_name)
-    st.config.set_option("theme.primaryColor", '#09A3D5')
+    st.config.set_option("theme.primaryColor", color)
 
     if show_logo:
         st.sidebar.markdown(LOGO, unsafe_allow_html=True)
