@@ -16,10 +16,6 @@ TOKEN_ATTRS = ["idx", "text", "lemma_", "pos_", "tag_", "dep_", "head", "morph",
 # fmt: on
 FOOTER = """<span style="font-size: 0.75em">&hearts; Built with [`spacy-streamlit`](https://github.com/explosion/spacy-streamlit)</span>"""
 
-#if not st.session_state:
-#    st.config.set_option("theme.primaryColor", "#09A3D5")
-#if not st.session_state:
-st.session_state.primaryColor = "#09A3D5"
 
 def visualize(
     models: Union[List[str], Dict[str, str]],
@@ -47,7 +43,7 @@ def visualize(
     if st.config.get_option("theme.primaryColor") != color:
         st.config.set_option("theme.primaryColor", color)
 
-        # Necessary to apply the theming
+        # Necessary to apply theming
         st.experimental_rerun()
 
     if show_logo:
