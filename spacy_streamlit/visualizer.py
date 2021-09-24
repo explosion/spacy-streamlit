@@ -5,7 +5,7 @@ from spacy.language import Language
 from spacy import displacy
 import pandas as pd
 
-from .util import load_model, process_text, get_svg, get_html, LOGO # get_color_styles,
+from .util import load_model, process_text, get_svg, get_html, LOGO  # get_color_styles,
 
 
 # fmt: off
@@ -16,8 +16,10 @@ TOKEN_ATTRS = ["idx", "text", "lemma_", "pos_", "tag_", "dep_", "head", "morph",
 # fmt: on
 FOOTER = """<span style="font-size: 0.75em">&hearts; Built with [`spacy-streamlit`](https://github.com/explosion/spacy-streamlit)</span>"""
 
-
-
+#if not st.session_state:
+#    st.config.set_option("theme.primaryColor", "#09A3D5")
+#if not st.session_state:
+st.session_state.primaryColor = "#09A3D5"
 
 def visualize(
     models: Union[List[str], Dict[str, str]],
@@ -37,13 +39,16 @@ def visualize(
     sidebar_description: Optional[str] = None,
     show_logo: bool = True,
     color: Optional[str] = "#09A3D5",
-    app_name: Optional[str] = "spaCy-Streamlit",
     key: Optional[str] = None,
     get_default_text: Callable[[Language], str] = None,
 ) -> None:
     """Embed the full visualizer with selected components."""
 
-    st.config.set_option("theme.primaryColor", color)
+    if st.config.get_option("theme.primaryColor") != color:
+        st.config.set_option("theme.primaryColor", color)
+
+        # Necessary to apply the theming
+        st.experimental_rerun()
 
     if show_logo:
         st.sidebar.markdown(LOGO, unsafe_allow_html=True)
@@ -70,7 +75,7 @@ def visualize(
         index=default_model_index,
         key=f"{key}_visualize_models",
         format_func=format_func,
-        args = {}
+        args={},
     )
     model_load_state = st.info(f"Loading model '{spacy_model}'...")
     nlp = load_model(spacy_model)
