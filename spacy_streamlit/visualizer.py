@@ -5,7 +5,7 @@ from spacy.language import Language
 from spacy import displacy
 import pandas as pd
 
-from .util import load_model, process_text, get_svg, get_html, LOGO  # get_color_styles,
+from .util import load_model, process_text, get_svg, get_html, LOGO 
 
 
 # fmt: off
