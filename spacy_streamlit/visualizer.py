@@ -5,7 +5,7 @@ from spacy.language import Language
 from spacy import displacy
 import pandas as pd
 
-from .util import load_model, process_text, get_svg, get_html, get_color_styles, LOGO
+from .util import load_model, process_text, get_svg, get_html, LOGO 
 
 
 # fmt: off
@@ -39,8 +39,13 @@ def visualize(
     get_default_text: Callable[[Language], str] = None,
 ) -> None:
     """Embed the full visualizer with selected components."""
-    if color:
-        st.write(get_color_styles(color), unsafe_allow_html=True)
+
+    if st.config.get_option("theme.primaryColor") != color:
+        st.config.set_option("theme.primaryColor", color)
+
+        # Necessary to apply theming
+        st.experimental_rerun()
+
     if show_logo:
         st.sidebar.markdown(LOGO, unsafe_allow_html=True)
     if sidebar_title:
