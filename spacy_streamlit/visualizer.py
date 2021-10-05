@@ -5,7 +5,7 @@ from spacy.language import Language
 from spacy import displacy
 import pandas as pd
 
-from .util import load_model, process_text, get_svg, get_html, LOGO # get_color_styles,
+from .util import load_model, process_text, get_svg, get_html, LOGO
 
 
 # fmt: off
@@ -15,8 +15,6 @@ TOKEN_ATTRS = ["idx", "text", "lemma_", "pos_", "tag_", "dep_", "head", "morph",
                "is_digit", "is_punct", "like_num", "is_sent_start"]
 # fmt: on
 FOOTER = """<span style="font-size: 0.75em">&hearts; Built with [`spacy-streamlit`](https://github.com/explosion/spacy-streamlit)</span>"""
-
-
 
 
 def visualize(
@@ -41,7 +39,6 @@ def visualize(
     get_default_text: Callable[[Language], str] = None,
 ) -> None:
     """Embed the full visualizer with selected components."""
-
 
     if st.config.get_option("theme.primaryColor") != color:
         st.config.set_option("theme.primaryColor", color)
@@ -74,7 +71,7 @@ def visualize(
         index=default_model_index,
         key=f"{key}_visualize_models",
         format_func=format_func,
-        args = {}
+        args={},
     )
     model_load_state = st.info(f"Loading model '{spacy_model}'...")
     nlp = load_model(spacy_model)
