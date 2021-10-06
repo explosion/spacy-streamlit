@@ -43,7 +43,6 @@ def visualize(
 ) -> None:
     """Embed the full visualizer with selected components."""
 
-
     if st.config.get_option("theme.primaryColor") != color:
         st.config.set_option("theme.primaryColor", color)
 
