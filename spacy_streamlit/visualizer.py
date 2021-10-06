@@ -178,7 +178,7 @@ def visualize_ner(
     labels = labels or [ent.label_ for ent in doc.ents]
 
     if not labels:
-        st.warning("The parameter labels should not be empty.")
+        st.warning("The parameter 'labels' should not be empty or None.")
     else:
         exp = st.expander("Select entity labels")
         label_select = exp.multiselect(
