@@ -162,7 +162,7 @@ def visualize_parser(
 
 
 def visualize_ner(
-    doc: spacy.tokens.Doc,
+    doc: Union[spacy.tokens.Doc, dict],
     *,
     labels: Sequence[str] = tuple(),
     attrs: List[str] = NER_ATTRS,
@@ -170,6 +170,7 @@ def visualize_ner(
     title: Optional[str] = "Named Entities",
     colors: Dict[str, str] = {},
     key: Optional[str] = None,
+    manual: Optional[bool] = False,
 ) -> None:
     """Visualizer for named entities."""
     if title:
@@ -188,7 +189,7 @@ def visualize_ner(
             key=f"{key}_ner_label_select",
         )
         html = displacy.render(
-            doc, style="ent", options={"ents": label_select, "colors": colors}
+            doc, style="ent", options={"ents": label_select, "colors": colors}, manual=manual
         )
         style = "<style>mark.entity { display: inline-block }</style>"
         st.write(f"{style}{get_html(html)}", unsafe_allow_html=True)
