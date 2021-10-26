@@ -5,7 +5,7 @@ from spacy.language import Language
 from spacy import displacy
 import pandas as pd
 
-from .util import load_model, process_text, get_svg, get_html, LOGO 
+from .util import load_model, process_text, get_svg, get_html, LOGO
 
 
 # fmt: off
@@ -178,26 +178,33 @@ def visualize_ner(
     """Visualizer for named entities."""
     if title:
         st.header(title)
-    exp = st.expander("Select entity labels")
-    label_select = exp.multiselect(
-        "Entity labels",
-        options=labels,
-        default=list(labels),
-        key=f"{key}_ner_label_select",
-    )
-    html = displacy.render(
-        doc, style="ent", options={"ents": label_select, "colors": colors}
-    )
-    style = "<style>mark.entity { display: inline-block }</style>"
-    st.write(f"{style}{get_html(html)}", unsafe_allow_html=True)
-    if show_table:
-        data = [
-            [str(getattr(ent, attr)) for attr in attrs]
-            for ent in doc.ents
-            if ent.label_ in labels
-        ]
-        df = pd.DataFrame(data, columns=attrs)
-        st.dataframe(df)
+
+    labels = labels or [ent.label_ for ent in doc.ents]
+
+    if not labels:
+        st.warning("The parameter 'labels' should not be empty or None.")
+    else:
+        exp = st.expander("Select entity labels")
+        label_select = exp.multiselect(
+            "Entity labels",
+            options=labels,
+            default=list(labels),
+            key=f"{key}_ner_label_select",
+        )
+        html = displacy.render(
+            doc, style="ent", options={"ents": label_select, "colors": colors}
+        )
+        style = "<style>mark.entity { display: inline-block }</style>"
+        st.write(f"{style}{get_html(html)}", unsafe_allow_html=True)
+        if show_table:
+            data = [
+                [str(getattr(ent, attr)) for attr in attrs]
+                for ent in doc.ents
+                if ent.label_ in label_select
+            ]
+            if data:
+                df = pd.DataFrame(data, columns=attrs)
+                st.dataframe(df)
 
 
 def visualize_textcat(
