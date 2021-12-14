@@ -37,7 +37,6 @@ def visualize(
     sidebar_description: Optional[str] = None,
     show_logo: bool = True,
     color: Optional[str] = "#09A3D5",
-    app_name: Optional[str] = "spaCy-Streamlit",
     key: Optional[str] = None,
     get_default_text: Callable[[Language], str] = None,
 ) -> None:
@@ -109,7 +108,7 @@ def visualize(
     if "textcat" in visualizers and "textcat" in active_visualizers:
         visualize_textcat(doc)
     if "similarity" in visualizers and "similarity" in active_visualizers:
-        visualize_similarity(nlp, key=key)
+        visualize_similarity(nlp, default_texts=similarity_texts, key=key)
     if "tokens" in visualizers and "tokens" in active_visualizers:
         visualize_tokens(doc, attrs=token_attrs, key=key)
 
