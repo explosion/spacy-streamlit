@@ -17,8 +17,6 @@ TOKEN_ATTRS = ["idx", "text", "lemma_", "pos_", "tag_", "dep_", "head", "morph",
 FOOTER = """<span style="font-size: 0.75em">&hearts; Built with [`spacy-streamlit`](https://github.com/explosion/spacy-streamlit)</span>"""
 
 
-
-
 def visualize(
     models: Union[List[str], Dict[str, str]],
     default_text: str = "",
@@ -73,7 +71,7 @@ def visualize(
         index=default_model_index,
         key=f"{key}_visualize_models",
         format_func=format_func,
-        args = {}
+        args={},
     )
     model_load_state = st.info(f"Loading model '{spacy_model}'...")
     nlp = load_model(spacy_model)
@@ -181,12 +179,16 @@ def visualize_ner(
 
     if manual:
         if show_table:
-            st.warning("When the parameter 'manual' is set to True, the parameter 'show_table' must be set to False.")
+            st.warning(
+                "When the parameter 'manual' is set to True, the parameter 'show_table' must be set to False."
+            )
         if not isinstance(doc, list):
-            st.warning("When the parameter 'manual' is set to True, the parameter 'doc' must be of type 'list', not 'spacy.tokens.Doc'.")
+            st.warning(
+                "When the parameter 'manual' is set to True, the parameter 'doc' must be of type 'list', not 'spacy.tokens.Doc'."
+            )
     else:
         labels = labels or [ent.label_ for ent in doc.ents]
- 
+
     if not labels:
         st.warning("The parameter 'labels' should not be empty or None.")
     else:
@@ -198,7 +200,10 @@ def visualize_ner(
             key=f"{key}_ner_label_select",
         )
         html = displacy.render(
-            doc, style="ent", options={"ents": label_select, "colors": colors}, manual=manual
+            doc,
+            style="ent",
+            options={"ents": label_select, "colors": colors},
+            manual=manual,
         )
         style = "<style>mark.entity { display: inline-block }</style>"
         st.write(f"{style}{get_html(html)}", unsafe_allow_html=True)
