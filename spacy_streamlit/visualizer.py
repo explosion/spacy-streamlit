@@ -71,7 +71,6 @@ def visualize(
         index=default_model_index,
         key=f"{key}_visualize_models",
         format_func=format_func,
-        args={},
     )
     model_load_state = st.info(f"Loading model '{spacy_model}'...")
     nlp = load_model(spacy_model)
