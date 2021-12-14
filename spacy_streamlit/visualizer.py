@@ -105,7 +105,7 @@ def visualize(
     if "textcat" in visualizers and "textcat" in active_visualizers:
         visualize_textcat(doc)
     if "similarity" in visualizers and "similarity" in active_visualizers:
-        visualize_similarity(nlp, key=key)
+        visualize_similarity(nlp, default_texts=similarity_texts, key=key)
     if "tokens" in visualizers and "tokens" in active_visualizers:
         visualize_tokens(doc, attrs=token_attrs, key=key)
 
@@ -178,12 +178,16 @@ def visualize_ner(
 
     if manual:
         if show_table:
-            st.warning("When the parameter 'manual' is set to True, the parameter 'show_table' must be set to False.")
+            st.warning(
+                "When the parameter 'manual' is set to True, the parameter 'show_table' must be set to False."
+            )
         if not isinstance(doc, list):
-            st.warning("When the parameter 'manual' is set to True, the parameter 'doc' must be of type 'list', not 'spacy.tokens.Doc'.")
+            st.warning(
+                "When the parameter 'manual' is set to True, the parameter 'doc' must be of type 'list', not 'spacy.tokens.Doc'."
+            )
     else:
         labels = labels or [ent.label_ for ent in doc.ents]
- 
+
     if not labels:
         st.warning("The parameter 'labels' should not be empty or None.")
     else:
@@ -195,7 +199,10 @@ def visualize_ner(
             key=f"{key}_ner_label_select",
         )
         html = displacy.render(
-            doc, style="ent", options={"ents": label_select, "colors": colors}, manual=manual
+            doc,
+            style="ent",
+            options={"ents": label_select, "colors": colors},
+            manual=manual,
         )
         style = "<style>mark.entity { display: inline-block }</style>"
         st.write(f"{style}{get_html(html)}", unsafe_allow_html=True)
