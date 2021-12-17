@@ -171,6 +171,7 @@ def visualize_ner(
     colors: Dict[str, str] = {},
     key: Optional[str] = None,
     manual: Optional[bool] = False,
+    extra_options: Optional[Dict] = {}
 ) -> None:
     """Visualizer for named entities."""
     if title:
@@ -198,10 +199,13 @@ def visualize_ner(
             default=list(labels),
             key=f"{key}_ner_label_select",
         )
+        options = {"ents": label_select, "colors": colors}
+        if extra_options:
+            options.update(extra_options)
         html = displacy.render(
             doc,
             style="ent",
-            options={"ents": label_select, "colors": colors},
+            options=options,
             manual=manual,
         )
         style = "<style>mark.entity { display: inline-block }</style>"
