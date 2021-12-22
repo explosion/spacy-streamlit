@@ -2,11 +2,8 @@
 Example of using extra_options for visualize_ner.
 """
 import spacy
-import streamlit as st
 
 import spacy_streamlit
-
-st.title("My cool app")
 
 nlp = spacy.blank("en")
 text = "But Google is starting from behind."
@@ -18,6 +15,21 @@ spacy_streamlit.visualize_ner(
     doc,
     labels=["ORG"],
     show_table=False,
-    title="Persons, dates and locations",
-    extra_options={"kb_url_template": "https://www.wikidata.org/wiki/{}"}
+    title="Custom Colors NER Visualization",
+    colors={"ORG": "#EEE"},
+    options={
+        "kb_url_template": "https://www.wikidata.org/wiki/{}"
+    },
+    key="Custom Colors"
+)
+
+spacy_streamlit.visualize_ner(
+    doc,
+    labels=["ORG"],
+    show_table=False,
+    title="Default Colors NER Visualization",
+    options={
+        "kb_url_template": "https://www.wikidata.org/wiki/{}"
+    },
+    key="Default Colors"
 )

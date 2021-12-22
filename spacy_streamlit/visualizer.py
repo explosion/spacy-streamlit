@@ -171,7 +171,44 @@ def visualize_ner(
     colors: Dict[str, str] = {},
     key: Optional[str] = None,
     manual: Optional[bool] = False,
-    extra_options: Optional[Dict] = {},
+    options: Optional[Dict] = {},
+):
+    """
+    Visualizer for named entities.
+
+    doc (Doc, List): The document to visualize.
+    labels (list): The entity labels to visualize.
+    attrs (list):  The attributes on the entity Span to be labeled. Attributes are displayed only when the show_table
+    argument is True.
+    title (str): The title displayed at the top of the NER visualization.
+    colors (Dict): Dictionary of colors for the entity spans to visualize, with keys as labels and corresponding colors
+    as the values. This argument will be deprecated soon. In future the colors arg need to be passed in the options arg
+    with the key "colors".
+    key (str): Key used for the streamlit component for selecting labels.
+    manual (bool): Flag signifying whether the doc argument is a Doc object or a List of Dicts containing entity span
+    information.
+    options: Dictionary of options to be passed to the displacy render method for generating the HTML to be rendered.
+    """
+    if colors:
+        if not options:
+            options = dict()
+
+        options["colors"] = colors
+
+    _visualize_ner(doc, labels=labels, attrs=attrs, show_table=show_table, title=title, key=key, manual=manual,
+                   options=options)
+
+
+def _visualize_ner(
+    doc: Union[spacy.tokens.Doc, List[Dict[str, str]]],
+    *,
+    labels: Sequence[str] = tuple(),
+    attrs: List[str] = NER_ATTRS,
+    show_table: bool = True,
+    title: Optional[str] = "Named Entities",
+    key: Optional[str] = None,
+    manual: Optional[bool] = False,
+    options: Optional[Dict] = {},
 ) -> None:
     """Visualizer for named entities."""
     if title:
@@ -199,9 +236,10 @@ def visualize_ner(
             default=list(labels),
             key=f"{key}_ner_label_select",
         )
-        options = {"ents": label_select, "colors": colors}
-        if extra_options:
-            options.update(extra_options)
+        if not options:
+            options = dict()
+
+        options["ents"] = label_select
         html = displacy.render(
             doc,
             style="ent",
