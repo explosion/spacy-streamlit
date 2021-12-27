@@ -243,7 +243,7 @@ def _visualize_ner(
         html = displacy.render(
             doc,
             style="ent",
-            options=options,
+            options=displacy_options,
             manual=manual,
         )
         style = "<style>mark.entity { display: inline-block }</style>"
