@@ -16,8 +16,8 @@ spacy_streamlit.visualize_ner(
     labels=["ORG"],
     show_table=False,
     title="Custom Colors NER Visualization",
-    colors={"ORG": "#EEE"},
     displacy_options={
+        "colors": {"ORG": "#EEE"},
         "kb_url_template": "https://www.wikidata.org/wiki/{}"
     },
     key="Custom Colors"
