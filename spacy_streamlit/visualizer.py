@@ -239,7 +239,7 @@ def _visualize_ner(
         if not displacy_options:
             displacy_options = dict()
 
-        options["ents"] = label_select
+        displacy_options["ents"] = label_select
         html = displacy.render(
             doc,
             style="ent",
