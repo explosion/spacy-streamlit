@@ -171,7 +171,7 @@ def visualize_ner(
     colors: Dict[str, str] = {},
     key: Optional[str] = None,
     manual: Optional[bool] = False,
-    options: Optional[Dict] = {},
+    displacy_options: Optional[Dict] = {},
 ):
     """
     Visualizer for named entities.
