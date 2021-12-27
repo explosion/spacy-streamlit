@@ -187,7 +187,7 @@ def visualize_ner(
     key (str): Key used for the streamlit component for selecting labels.
     manual (bool): Flag signifying whether the doc argument is a Doc object or a List of Dicts containing entity span
     information.
-    options: Dictionary of options to be passed to the displacy render method for generating the HTML to be rendered.
+    displacy_options: Dictionary of options to be passed to the displacy render method for generating the HTML to be rendered.
     """
     if colors:
         if not options:
