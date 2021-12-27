@@ -189,11 +189,10 @@ def visualize_ner(
     information.
     displacy_options: Dictionary of options to be passed to the displacy render method for generating the HTML to be rendered.
     """
+    if not displacy_options:
+        displacy_options = dict()
     if colors:
-        if not options:
-            options = dict()
-
-        options["colors"] = colors
+        displacy_options["colors"] = colors
 
     _visualize_ner(doc, labels=labels, attrs=attrs, show_table=show_table, title=title, key=key, manual=manual,
                    displacy_options=displacy_options)
