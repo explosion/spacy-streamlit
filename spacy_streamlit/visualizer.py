@@ -196,7 +196,7 @@ def visualize_ner(
         options["colors"] = colors
 
     _visualize_ner(doc, labels=labels, attrs=attrs, show_table=show_table, title=title, key=key, manual=manual,
-                   options=options)
+                   displacy_options=displacy_options)
 
 
 def _visualize_ner(
