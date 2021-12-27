@@ -28,7 +28,7 @@ spacy_streamlit.visualize_ner(
     labels=["ORG"],
     show_table=False,
     title="Default Colors NER Visualization",
-    options={
+    displacy_options={
         "kb_url_template": "https://www.wikidata.org/wiki/{}"
     },
     key="Default Colors"
