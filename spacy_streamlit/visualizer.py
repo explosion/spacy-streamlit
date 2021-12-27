@@ -236,8 +236,7 @@ def _visualize_ner(
             key=f"{key}_ner_label_select",
         )
         if not displacy_options:
-            displacy_options = dict()
-
+            displacy_options = {}
         displacy_options["ents"] = label_select
         html = displacy.render(
             doc,
