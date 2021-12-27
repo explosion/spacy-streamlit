@@ -208,7 +208,7 @@ def _visualize_ner(
     title: Optional[str] = "Named Entities",
     key: Optional[str] = None,
     manual: Optional[bool] = False,
-    options: Optional[Dict] = {},
+    displacy_options: Optional[Dict] = {},
 ) -> None:
     """Visualizer for named entities."""
     if title:
