@@ -182,7 +182,7 @@ def visualize_ner(
     argument is True.
     title (str): The title displayed at the top of the NER visualization.
     colors (Dict): Dictionary of colors for the entity spans to visualize, with keys as labels and corresponding colors
-    as the values. This argument will be deprecated soon. In future the colors arg need to be passed in the options arg
+    as the values. This argument will be deprecated soon. In future the colors arg need to be passed in the displacy_options arg
     with the key "colors".
     key (str): Key used for the streamlit component for selecting labels.
     manual (bool): Flag signifying whether the doc argument is a Doc object or a List of Dicts containing entity span
