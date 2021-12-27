@@ -1,5 +1,5 @@
 """
-Example of using extra_options for visualize_ner.
+Example of using displacy_options for visualize_ner.
 """
 import spacy
 
