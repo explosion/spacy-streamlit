@@ -171,8 +171,29 @@ def visualize_ner(
     colors: Dict[str, str] = {},
     key: Optional[str] = None,
     manual: Optional[bool] = False,
-) -> None:
-    """Visualizer for named entities."""
+    displacy_options: Optional[Dict] = None,
+):
+    """
+    Visualizer for named entities.
+
+    doc (Doc, List): The document to visualize.
+    labels (list): The entity labels to visualize.
+    attrs (list):  The attributes on the entity Span to be labeled. Attributes are displayed only when the show_table
+    argument is True.
+    title (str): The title displayed at the top of the NER visualization.
+    colors (Dict): Dictionary of colors for the entity spans to visualize, with keys as labels and corresponding colors
+    as the values. This argument will be deprecated soon. In future the colors arg need to be passed in the displacy_options arg
+    with the key "colors".
+    key (str): Key used for the streamlit component for selecting labels.
+    manual (bool): Flag signifying whether the doc argument is a Doc object or a List of Dicts containing entity span
+    information.
+    displacy_options (Dict): Dictionary of options to be passed to the displacy render method for generating the HTML to be rendered.
+    """
+    if not displacy_options:
+        displacy_options = dict()
+    if colors:
+        displacy_options["colors"] = colors
+
     if title:
         st.header(title)
 
@@ -198,10 +219,12 @@ def visualize_ner(
             default=list(labels),
             key=f"{key}_ner_label_select",
         )
+
+        displacy_options["ents"] = label_select
         html = displacy.render(
             doc,
             style="ent",
-            options={"ents": label_select, "colors": colors},
+            options=displacy_options,
             manual=manual,
         )
         style = "<style>mark.entity { display: inline-block }</style>"
