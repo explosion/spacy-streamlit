@@ -187,29 +187,13 @@ def visualize_ner(
     key (str): Key used for the streamlit component for selecting labels.
     manual (bool): Flag signifying whether the doc argument is a Doc object or a List of Dicts containing entity span
     information.
-    displacy_options: Dictionary of options to be passed to the displacy render method for generating the HTML to be rendered.
+    displacy_options (Dict): Dictionary of options to be passed to the displacy render method for generating the HTML to be rendered.
     """
     if not displacy_options:
         displacy_options = dict()
     if colors:
         displacy_options["colors"] = colors
 
-    _visualize_ner(doc, labels=labels, attrs=attrs, show_table=show_table, title=title, key=key, manual=manual,
-                   displacy_options=displacy_options)
-
-
-def _visualize_ner(
-    doc: Union[spacy.tokens.Doc, List[Dict[str, str]]],
-    *,
-    labels: Sequence[str] = tuple(),
-    attrs: List[str] = NER_ATTRS,
-    show_table: bool = True,
-    title: Optional[str] = "Named Entities",
-    key: Optional[str] = None,
-    manual: Optional[bool] = False,
-    displacy_options: Optional[Dict] = {},
-) -> None:
-    """Visualizer for named entities."""
     if title:
         st.header(title)
 
@@ -235,8 +219,7 @@ def _visualize_ner(
             default=list(labels),
             key=f"{key}_ner_label_select",
         )
-        if not displacy_options:
-            displacy_options = {}
+
         displacy_options["ents"] = label_select
         html = displacy.render(
             doc,
