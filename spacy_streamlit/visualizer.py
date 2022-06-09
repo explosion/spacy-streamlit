@@ -13,6 +13,9 @@ NER_ATTRS = ["text", "label_", "start", "end", "start_char", "end_char"]
 TOKEN_ATTRS = ["idx", "text", "lemma_", "pos_", "tag_", "dep_", "head", "morph",
                "ent_type_", "ent_iob_", "shape_", "is_alpha", "is_ascii",
                "is_digit", "is_punct", "like_num", "is_sent_start"]
+# Currently these attrs are the same, but they might differ in the future.
+SPAN_ATTRS = NER_ATTRS 
+
 # fmt: on
 FOOTER = """<span style="font-size: 0.75em">&hearts; Built with [`spacy-streamlit`](https://github.com/explosion/spacy-streamlit)</span>"""
 
@@ -180,6 +183,7 @@ def visualize_ner(
     labels (list): The entity labels to visualize.
     attrs (list):  The attributes on the entity Span to be labeled. Attributes are displayed only when the show_table
     argument is True.
+    show_table (bool): Flag signifying whether to show a table with accompanying entity attributes.
     title (str): The title displayed at the top of the NER visualization.
     colors (Dict): Dictionary of colors for the entity spans to visualize, with keys as labels and corresponding colors
     as the values. This argument will be deprecated soon. In future the colors arg need to be passed in the displacy_options arg
@@ -238,6 +242,50 @@ def visualize_ner(
             if data:
                 df = pd.DataFrame(data, columns=attrs)
                 st.dataframe(df)
+
+
+def visualize_spans(
+    doc: spacy.tokens.Doc,
+    *,
+    spans_key: str = "sc",
+    attrs: List[str] = SPAN_ATTRS,
+    show_table: bool = True,
+    title: Optional[str] = "Spans",
+    displacy_options: Optional[Dict] = None,
+):
+    """
+    Visualizer for spans.
+
+    doc (Doc, List): The document to visualize.
+    spans_key (str): Which spans key to render spans from. Default is "sc".
+    attrs (list):  The attributes on the entity Span to be labeled. Attributes are displayed only when the show_table
+    argument is True.
+    show_table (bool): Flag signifying whether to show a table with accompanying span attributes.
+    title (str): The title displayed at the top of the Spans visualization.
+    displacy_options (Dict): Dictionary of options to be passed to the displacy render method for generating the HTML to be rendered.
+    """
+    if not displacy_options:
+        displacy_options = dict()
+    displacy_options["spans_key"] = spans_key
+
+    if title:
+        st.header(title)
+
+    html = displacy.render(
+        doc,
+        style="span",
+        options=displacy_options,
+    )
+    st.write(f"{get_html(html)}", unsafe_allow_html=True)
+
+    if show_table:
+        data = [
+            [str(getattr(span, attr)) for attr in attrs]
+            for span in doc.spans[spans_key]
+        ]
+        if data:
+            df = pd.DataFrame(data, columns=attrs)
+            st.dataframe(df)
 
 
 def visualize_textcat(
