@@ -133,30 +133,57 @@ def visualize(
 
 
 def visualize_parser(
-    doc: spacy.tokens.Doc,
+    doc: Union[spacy.tokens.Doc, List[Dict[str, str]]],
     *,
     title: Optional[str] = "Dependency Parse & Part-of-speech tags",
     key: Optional[str] = None,
+    manual: bool = False,
+    displacy_options: Optional[Dict] = None,
 ) -> None:
-    """Visualizer for dependency parses."""
+    """Visualizer for dependency parses.
+
+    doc (Doc, List): The document to visualize.
+    key (str): Key used for the streamlit component for selecting labels.
+    manual (bool): Flag signifying whether the doc argument is a Doc object or a List of Dicts containing parse information.
+    displacy_options (Dict): Dictionary of options to be passed to the displacy render method for generating the HTML to be rendered.
+      See: https://spacy.io/api/top-level#options-dep
+    """
+    if displacy_options is None:
+        displacy_options = dict()
     if title:
         st.header(title)
-    cols = st.columns(4)
-    split_sents = cols[0].checkbox(
-        "Split sentences", value=True, key=f"{key}_parser_split_sents"
-    )
-    options = {
-        "collapse_punct": cols[1].checkbox(
-            "Collapse punct", value=True, key=f"{key}_parser_collapse_punct"
-        ),
-        "collapse_phrases": cols[2].checkbox(
-            "Collapse phrases", key=f"{key}_parser_collapse_phrases"
-        ),
-        "compact": cols[3].checkbox("Compact mode", key=f"{key}_parser_compact"),
-    }
+    if manual:
+        # In manual mode, collapse_phrases and collapse_punct are passed as options to
+        # displacy.parse_deps(doc) and the resulting data is retokenized to be correct,
+        # so we already have these options configured at the time we use this data.
+        cols = st.columns(1)
+        split_sents = False
+        options = {
+            "compact": cols[0].checkbox("Compact mode", key=f"{key}_parser_compact"),
+        }
+    else:
+        cols = st.columns(4)
+        split_sents = cols[0].checkbox(
+            "Split sentences", value=True, key=f"{key}_parser_split_sents"
+        )
+        options = {
+            "collapse_punct": cols[1].checkbox(
+                "Collapse punct", value=True, key=f"{key}_parser_collapse_punct"
+            ),
+            "collapse_phrases": cols[2].checkbox(
+                "Collapse phrases", key=f"{key}_parser_collapse_phrases"
+            ),
+            "compact": cols[3].checkbox("Compact mode", key=f"{key}_parser_compact"),
+        }
     docs = [span.as_doc() for span in doc.sents] if split_sents else [doc]
+    # add selected options to options provided by user
+    # `options` from `displacy_options` are overwritten by user provided
+    # options from the checkboxes
+    displacy_options = {**displacy_options, **options}
     for sent in docs:
-        html = displacy.render(sent, options=options, style="dep")
+        html = displacy.render(
+            sent, options=displacy_options, style="dep", manual=manual
+        )
         # Double newlines seem to mess with the rendering
         html = html.replace("\n\n", "\n")
         if split_sents and len(docs) > 1:
@@ -192,6 +219,7 @@ def visualize_ner(
     manual (bool): Flag signifying whether the doc argument is a Doc object or a List of Dicts containing entity span
     information.
     displacy_options (Dict): Dictionary of options to be passed to the displacy render method for generating the HTML to be rendered.
+      See https://spacy.io/api/top-level#displacy_options-ent.
     """
     if not displacy_options:
         displacy_options = dict()
@@ -245,24 +273,27 @@ def visualize_ner(
 
 
 def visualize_spans(
-    doc: spacy.tokens.Doc,
+    doc: Union[spacy.tokens.Doc, Dict[str, str]],
     *,
     spans_key: str = "sc",
     attrs: List[str] = SPAN_ATTRS,
     show_table: bool = True,
     title: Optional[str] = "Spans",
+    manual: Optional[bool] = False,
     displacy_options: Optional[Dict] = None,
 ):
     """
     Visualizer for spans.
 
-    doc (Doc, List): The document to visualize.
+    doc (Doc, Dict): The document to visualize.
     spans_key (str): Which spans key to render spans from. Default is "sc".
     attrs (list):  The attributes on the entity Span to be labeled. Attributes are displayed only when the show_table
     argument is True.
     show_table (bool): Flag signifying whether to show a table with accompanying span attributes.
     title (str): The title displayed at the top of the Spans visualization.
+    manual (bool): Flag signifying whether the doc argument is a Doc object or a List of Dicts containing span information.
     displacy_options (Dict): Dictionary of options to be passed to the displacy render method for generating the HTML to be rendered.
+      See https://spacy.io/api/top-level#displacy_options-span
     """
     if not displacy_options:
         displacy_options = dict()
@@ -271,10 +302,21 @@ def visualize_spans(
     if title:
         st.header(title)
 
+    if manual:
+        if show_table:
+            st.warning(
+                "When the parameter 'manual' is set to True, the parameter 'show_table' must be set to False."
+            )
+        if not isinstance(doc, dict):
+            st.warning(
+                "When the parameter 'manual' is set to True, the parameter 'doc' must be of type 'Dict', not 'spacy.tokens.Doc'."
+            )
+
     html = displacy.render(
         doc,
         style="span",
         options=displacy_options,
+        manual=manual,
     )
     st.write(f"{get_html(html)}", unsafe_allow_html=True)
 
