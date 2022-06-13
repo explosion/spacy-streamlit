@@ -117,12 +117,14 @@ doc = nlp("This is a text")
 visualize_parser(doc)
 ```
 
-| Argument        | Type          | Description                                  |
-| --------------- | ------------- | -------------------------------------------- |
-| `doc`           | `Doc`         | The spaCy `Doc` object to visualize.         |
-| _keyword-only_  |               |                                              |
-| `title`         | Optional[str] | Title of the visualizer block.               |
-| `sidebar_title` | Optional[str] | Title of the config settings in the sidebar. |
+| Argument           | Type           | Description                                                                                                                                              |
+| ------------------ | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `doc`              | `Doc`          | The spaCy `Doc` object to visualize.                                                                                                                     |
+| _keyword-only_     |                |                                                                                                                                                          |
+| `title`            | Optional[str]  | Title of the visualizer block.                                                                                                                           |
+| `key`              | Optional[str]  | Key used for the streamlit component for selecting labels.                                                                                               |
+| `manual`           | bool           | Flag signifying whether the doc argument is a Doc object or a List of Dicts containing parse information.                                                |
+| `displacy_optoins` | Optional[Dict] | Dictionary of options to be passed to the displacy render method for generating the HTML to be rendered. See: https://spacy.io/api/top-level#options-dep |
 
 #### <kbd>function</kbd> `visualize_ner`
 
@@ -138,16 +140,47 @@ doc = nlp("Sundar Pichai is the CEO of Google.")
 visualize_ner(doc, labels=nlp.get_pipe("ner").labels)
 ```
 
-| Argument        | Type          | Description                                                                   |
-| --------------- | ------------- | ----------------------------------------------------------------------------- |
-| `doc`           | `Doc`         | The spaCy `Doc` object to visualize.                                          |
-| _keyword-only_  |               |                                                                               |
-| `labels`        | Sequence[str] | The labels to show in the labels dropdown.                                    |
-| `attrs`         | List[str]     | The span attributes to show in entity table.                                  |
-| `show_table`    | bool          | Whether to show a table of entities and their attributes. Defaults to `True`. |
-| `title`         | Optional[str] | Title of the visualizer block.                                                |
-| `sidebar_title` | Optional[str] | Title of the config settings in the sidebar.                                  |
-| `colors`        | Dict[str,str] | A dictionary mapping labels to display colors ({"LABEL": "COLOR"})            |
+| Argument           | Type           | Description                                                                                                                                                                                                                                                 |
+| ------------------ | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `doc`              | `Doc`          | The spaCy `Doc` object to visualize.                                                                                                                                                                                                                        |
+| _keyword-only_     |                |                                                                                                                                                                                                                                                             |
+| `labels`           | Sequence[str]  | The labels to show in the labels dropdown.                                                                                                                                                                                                                  |
+| `attrs`            | List[str]      | The span attributes to show in entity table.                                                                                                                                                                                                                |
+| `show_table`       | bool           | Whether to show a table of entities and their attributes. Defaults to `True`.                                                                                                                                                                               |
+| `title`            | Optional[str]  | Title of the visualizer block.                                                                                                                                                                                                                              |
+| `colors`           | Dict[str,str]  | Dictionary of colors for the entity spans to visualize, with keys as labels and corresponding colors as the values. This argument will be deprecated soon. In future the colors arg need to be passed in the `displacy_options` arg with the key "colors".) |
+| `key`              | Optional[str]  | Key used for the streamlit component for selecting labels.                                                                                                                                                                                                  |
+| `manual`           | bool           | Flag signifying whether the doc argument is a Doc object or a List of Dicts containing entity span                                                                                                                                                          |
+| information.       |
+| `displacy_options` | Optional[Dict] | Dictionary of options to be passed to the displacy render method for generating the HTML to be rendered. See https://spacy.io/api/top-level#displacy_options-ent.                                                                                           |
+
+
+#### <kbd>function</kbd> `visualize_spans`
+
+Visualize spans in a `Doc` using spaCy's
+[`displacy` visualizer](https://spacy.io/usage/visualizers).
+
+```python
+import spacy
+from spacy_streamlit import visualize_spans
+
+nlp = spacy.load("en_core_web_sm")
+doc = nlp("Sundar Pichai is the CEO of Google.")
+doc.spans["job_role"] = [doc[4:7]]  # CEO of Google
+visualize_spans(doc, spans_key="job_role")
+```
+
+| Argument           | Type           | Description                                                                                                                                                        |
+| ------------------ | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `doc`              | `Doc`          | The spaCy `Doc` object to visualize.                                                                                                                               |
+| _keyword-only_     |                |                                                                                                                                                                    |
+| `spans_key`        | Sequence[str]  | Which spans key to render spans from. Default is "sc".                                                                                                             |
+| `attrs`            | List[str]      | The attributes on the entity Span to be labeled. Attributes are displayed only when the `show_table` argument is True.                                             |
+| `show_table`       | bool           | Whether to show a table of spans and their attributes. Defaults to `True`.                                                                                         |
+| `title`            | Optional[str]  | Title of the visualizer block.                                                                                                                                     |
+| `manual`           | bool           | Flag signifying whether the doc argument is a Doc object or a List of Dicts containing entity span information.                                                    |
+| `displacy_options` | Optional[Dict] | Dictionary of options to be passed to the displacy render method for generating the HTML to be rendered. See https://spacy.io/api/top-level#displacy_options-span. |
+
 
 #### <kbd>function</kbd> `visualize_textcat`
 

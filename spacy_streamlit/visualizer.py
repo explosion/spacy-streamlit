@@ -201,7 +201,7 @@ def visualize_ner(
     title: Optional[str] = "Named Entities",
     colors: Dict[str, str] = {},
     key: Optional[str] = None,
-    manual: Optional[bool] = False,
+    manual: bool = False,
     displacy_options: Optional[Dict] = None,
 ):
     """
@@ -280,7 +280,7 @@ def visualize_spans(
     attrs: List[str] = SPAN_ATTRS,
     show_table: bool = True,
     title: Optional[str] = "Spans",
-    manual: Optional[bool] = False,
+    manual: bool = False,
     displacy_options: Optional[Dict] = None,
 ):
     """
