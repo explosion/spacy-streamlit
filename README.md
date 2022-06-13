@@ -166,8 +166,10 @@ from spacy_streamlit import visualize_spans
 
 nlp = spacy.load("en_core_web_sm")
 doc = nlp("Sundar Pichai is the CEO of Google.")
-doc.spans["job_role"] = [doc[4:7]]  # CEO of Google
-visualize_spans(doc, spans_key="job_role")
+span = doc[4:7]  # CEO of Google
+span.label_ = "CEO"
+doc.spans["job_role"] = [span]
+visualize_spans(doc, spans_key="job_role", displacy_options={"colors": {"CEO": "#09a3d5"}})
 ```
 
 | Argument           | Type           | Description                                                                                                                                                        |
