@@ -320,6 +320,8 @@ def visualize_spans(
             manual=manual,
         )
     except ValueError as e:
+        # Note: This will break if this error message ever changes,
+        # but this will then throw the original (and still informative) error
         if str(e) == "[E087] Unknown displaCy style: span.":
             raise ValueError("'visualize_spans' requires spacy>=3.3.0")
         else:
