@@ -144,6 +144,7 @@ def visualize_parser(
 
     doc (Doc, List): The document to visualize.
     key (str): Key used for the streamlit component for selecting labels.
+    title (str): The title displayed at the top of the parser visualization.
     manual (bool): Flag signifying whether the doc argument is a Doc object or a List of Dicts containing parse information.
     displacy_options (Dict): Dictionary of options to be passed to the displacy render method for generating the HTML to be rendered.
       See: https://spacy.io/api/top-level#options-dep
