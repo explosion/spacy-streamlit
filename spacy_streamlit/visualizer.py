@@ -312,13 +312,18 @@ def visualize_spans(
             st.warning(
                 "When the parameter 'manual' is set to True, the parameter 'doc' must be of type 'Dict', not 'spacy.tokens.Doc'."
             )
-
-    html = displacy.render(
-        doc,
-        style="span",
-        options=displacy_options,
-        manual=manual,
-    )
+    try:
+        html = displacy.render(
+            doc,
+            style="span",
+            options=displacy_options,
+            manual=manual,
+        )
+    except ValueError as e:
+        if str(e) == "[E087] Unknown displaCy style: span.":
+            raise ValueError("'visualize_spans' requires spacy>=3.3.0")
+        else:
+            raise e
     st.write(f"{get_html(html)}", unsafe_allow_html=True)
 
     if show_table:
