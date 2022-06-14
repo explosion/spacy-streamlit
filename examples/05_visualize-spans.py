@@ -1,5 +1,5 @@
 """
-Example of using `visualize_spans` with a non-defualt spans_key
+Example of using `visualize_spans` with a non-default spans_key
 """
 import spacy_streamlit
 import streamlit as st
