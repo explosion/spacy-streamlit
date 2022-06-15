@@ -7,11 +7,20 @@ import streamlit as st
 import spacy
 from spacy_streamlit import visualize_spans
 
+text = "Welcome to the Bank of China."
+
 nlp = spacy.load("en_core_web_sm")
-doc = nlp("Sundar Pichai is the CEO of Google.")
-span = doc[4:7]  # CEO of Google
-span.label_ = "CEO"
-doc.spans["job_role"] = [span]
+doc = nlp(text)
+
+doc.spans["sc"] = [
+    spacy.tokens.Span(doc, 3, 6, "ORG"),
+    spacy.tokens.Span(doc, 5, 6, "GPE"),
+]
 visualize_spans(
-    doc, spans_key="job_role", displacy_options={"colors": {"CEO": "#09a3d5"}}
+    doc,
 )
+from pathlib import Path
+
+html = spacy.displacy.render(doc, style="span", page=True)
+output_path = Path("sentence.html")
+output_path.open("w", encoding="utf-8").write(html)
