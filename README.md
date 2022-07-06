@@ -7,7 +7,7 @@ and building interactive spaCy-powered apps with
 [Streamlit](https://streamlit.io). It includes various building blocks you can
 use in your own Streamlit app, like visualizers for **syntactic dependencies**,
 **named entities**, **text classification**, **semantic similarity** via word
-vectors, token attributes, and more.
+vectors, token attributes and more.
 
 [![Current Release Version](https://img.shields.io/github/release/explosion/spacy-streamlit.svg?style=flat-square&logo=github&include_prereleases)](https://github.com/explosion/spacy-streamlit/releases)
 [![pypi Version](https://img.shields.io/pypi/v/spacy-streamlit.svg?style=flat-square&logo=pypi&logoColor=white)](https://pypi.org/project/spacy-streamlit/)
