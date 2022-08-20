@@ -192,10 +192,11 @@ def visualize_ner(
         st.warning("The parameter 'labels' should not be empty or None.")
     else:
         exp = st.expander("Select entity labels")
+        labels = list(set(labels))
         label_select = exp.multiselect(
             "Entity labels",
             options=labels,
-            default=list(labels),
+            default=labels,
             key=f"{key}_ner_label_select",
         )
         html = displacy.render(
