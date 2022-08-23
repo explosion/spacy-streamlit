@@ -186,17 +186,16 @@ def visualize_ner(
                 "When the parameter 'manual' is set to True, the parameter 'doc' must be of type 'list', not 'spacy.tokens.Doc'."
             )
     else:
-        labels = labels or [ent.label_ for ent in doc.ents]
+        labels = labels or list({ent.label_ for ent in doc.ents})
 
     if not labels:
         st.warning("The parameter 'labels' should not be empty or None.")
     else:
         exp = st.expander("Select entity labels")
-        labels = list(set(labels))
         label_select = exp.multiselect(
             "Entity labels",
             options=labels,
-            default=labels,
+            default=list(labels),
             key=f"{key}_ner_label_select",
         )
         html = displacy.render(
