@@ -241,7 +241,7 @@ def visualize_ner(
                 "When the parameter 'manual' is set to True, the parameter 'doc' must be of type 'list', not 'spacy.tokens.Doc'."
             )
     else:
-        labels = labels or [ent.label_ for ent in doc.ents]
+        labels = labels or list({ent.label_ for ent in doc.ents})
 
     if not labels:
         st.warning("The parameter 'labels' should not be empty or None.")
