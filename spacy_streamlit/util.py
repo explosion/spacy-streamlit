@@ -3,13 +3,13 @@ import spacy
 import base64
 
 
-@st.cache(allow_output_mutation=True, suppress_st_warning=True)
+@st.cache_resources(allow_output_mutation=True, suppress_st_warning=True)
 def load_model(name: str) -> spacy.language.Language:
     """Load a spaCy model."""
     return spacy.load(name)
 
 
-@st.cache(allow_output_mutation=True, suppress_st_warning=True)
+@st.cache_data(allow_output_mutation=True, suppress_st_warning=True)
 def process_text(model_name: str, text: str) -> spacy.tokens.Doc:
     """Process a text and create a Doc object."""
     nlp = load_model(model_name)
