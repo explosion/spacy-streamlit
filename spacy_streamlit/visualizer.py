@@ -1,4 +1,5 @@
 from typing import List, Sequence, Tuple, Optional, Dict, Union, Callable
+from packaging.version import Version
 import streamlit as st
 import spacy
 from spacy.language import Language
@@ -7,7 +8,7 @@ import pandas as pd
 
 from .util import load_model, process_text, get_svg, get_html, LOGO
 
-SPACY_VERSION = tuple(map(int, spacy.__version__.split(".")))
+SPACY_VERSION = Version(spacy.__version__)
 
 # fmt: off
 NER_ATTRS = ["text", "label_", "start", "end", "start_char", "end_char"]
@@ -297,7 +298,7 @@ def visualize_spans(
     displacy_options (Dict): Dictionary of options to be passed to the displacy render method for generating the HTML to be rendered.
       See https://spacy.io/api/top-level#displacy_options-span
     """
-    if SPACY_VERSION < (3, 3, 0):
+    if SPACY_VERSION < Version("3.3.0"):
         raise ValueError(
             f"'visualize_spans' requires spacy>=3.3.0. You have spacy=={spacy.__version__}"
         )
