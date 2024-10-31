@@ -49,7 +49,7 @@ def visualize(
         st.config.set_option("theme.primaryColor", color)
 
         # Necessary to apply theming
-        st.experimental_rerun()
+        st.rerun()
 
     if show_logo:
         st.sidebar.markdown(LOGO, unsafe_allow_html=True)
