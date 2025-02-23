@@ -26,7 +26,7 @@ def visualize(
     models: Union[List[str], Dict[str, str]],
     default_text: str = "",
     default_model: Optional[str] = None,
-    visualizers: List[str] = ["parser", "ner", "textcat", "similarity", "tokens"],
+    visualizers: List[str] = ["parser", "ner", "textcat", "similarity", "tokens", "spans"],
     ner_labels: Optional[List[str]] = None,
     ner_attrs: List[str] = NER_ATTRS,
     similarity_texts: Tuple[str, str] = ("apple", "orange"),
@@ -113,6 +113,8 @@ def visualize(
         visualize_similarity(nlp, default_texts=similarity_texts, key=key)
     if "tokens" in visualizers and "tokens" in active_visualizers:
         visualize_tokens(doc, attrs=token_attrs, key=key)
+    if "spans" in visualizers:
+        visualize_spans(doc, spans_key="sc", show_table=True, title="Custom Spans")
 
     if show_json_doc or show_meta or show_config:
         st.header("Pipeline information")
