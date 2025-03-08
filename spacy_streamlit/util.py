@@ -17,9 +17,9 @@ def process_text(model_name: str, text: str) -> spacy.tokens.Doc:
 
 
 def get_svg(svg: str, style: str = "", wrap: bool = True):
-    """Convert an SVG to a base64-encoded image."""
+    """Convert an SVG to a base64-encoded images."""
     b64 = base64.b64encode(svg.encode("utf-8")).decode("utf-8")
-    html = f'<img src="data:image/svg+xml;base64,{b64}" style="{style}"/>'
+    html = f'<img src="data:images/svg+xml;base64,{b64}" style="{style}"/>'
     return get_html(html) if wrap else html
 
 
